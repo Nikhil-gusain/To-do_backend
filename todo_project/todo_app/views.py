@@ -49,6 +49,15 @@ class todoViewSet(viewsets.ModelViewSet):
             "status":200
             }
         return Response(data)
+    def create(self, request, *args, **kwargs):
+        # Automatically assign the current user to the new todo
+        request.data['user'] = f"http://127.0.0.1:8000/api/users/{request.user.id}/"
+        # request.data['user'] = f"https://skytodo.pythonanywhere.com/api/users/{request.user.id}/"
+        return super().create(request, *args, **kwargs)
+    def update(self, request, *args, **kwargs):
+        request.data['user'] = f"http://127.0.0.1:8000/api/users/{request.user.id}/"
+        # request.data['user'] = f"https://skytodo.pythonanywhere.com/api/users/{request.user.id}/"
+        return super().update(request, *args, **kwargs)
 
 
 class LoginView(generics.GenericAPIView):
