@@ -16,9 +16,10 @@ class UserSerializer(ModelSerializer):
         return user
 class TodoSerializer(HyperlinkedModelSerializer):
     id = ReadOnlyField()
+    created_at = ReadOnlyField()
     class Meta:
         model = todo
-        fields = ['user', 'img', 'text','id']
+        fields = ['user', 'img', 'text','id','created_at']
 
     def validate_img(self, value):
         print('validating img')
